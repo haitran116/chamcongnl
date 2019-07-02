@@ -24,7 +24,7 @@
     	}
     	
         table {
-            width: 80%;
+            width: 100%;
             background: yellow;
             margin: 0px auto;
             font-family: tomaho;
@@ -44,7 +44,7 @@
         .button {
 			  background-color: #4CAF50;
 			  border: none;
-			  color: white;
+			  color: navy;
 			  padding: 15px 32px;
 			  text-align: center;
 			  text-decoration: none;
@@ -128,7 +128,7 @@
                     </td>
 
                     <td>                       
-                        <textarea id="CongViec" name="txtCongViec" rows="5" cols="30"></textarea>
+                        <textarea id="CongViec" name="txtCongViec" rows="5" cols="55"></textarea>
                     </td>
 
                     <td>
