@@ -1,0 +1,18 @@
+body {
+	background: white;
+	font-family: Tomaho;
+	margin: 0px auto;
+}
+
+#login {
+	background: orange;
+	width: 650px;
+	height: auto;
+	margin: 0px auto;
+}
+
+#login ul {
+	margin-top: 0px;
+	margin-left: 500px;
+	visibility: hidden;
+}
