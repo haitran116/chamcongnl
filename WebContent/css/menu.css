@@ -1,11 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Insert title here</title>
-<style type="text/css">
+#menu {
+	background: green;
+	width: 100%;
+	height: auto;
+	margin: 0px auto;
+
+}
+
+@media (max-width: 700px) {
+  #menu{
+    background: black;
+  }
+}
+
 a{
 color: yellow;
 size: 30px;
@@ -65,18 +71,3 @@ margin-top: 5px;
     color: red;
   }
 }
-</style>
-
-</head>
-<body>
-
-	<a  href="ThemChamCong.jsp" class="myButton">Chấm Công</a>
-	
-	
-	<a  href="nhanvien_list.jsp" class="myButton">Danh sách Nhân Viên</a>
-	
-	
-	<a  href="chamcong.jsp" class="myButton">Thống kê Công</a>
-
-</body>
-</html>

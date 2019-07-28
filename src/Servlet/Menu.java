@@ -1,4 +1,4 @@
-package connect;
+package Servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class tttttttt
+ * Servlet implementation class Menu
  */
-@WebServlet("/tttttttt")
-public class tttttttt extends HttpServlet {
+@WebServlet("/Menu")
+public class Menu extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public tttttttt() {
+    public Menu() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,8 +27,7 @@ public class tttttttt extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().print("sdfsadfdsf");
-		
+		response.getWriter().print("asdasdasdsadsa");;
 	}
 
 	/**

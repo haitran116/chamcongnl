@@ -1,3 +1,4 @@
+<%@page import="dao.TaiKhoanDAO"%>
 <%@page import="model.NhanVien"%>
 <%@page import="dao.nhanvienDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -8,13 +9,30 @@
 <head>
 <meta charset="utf-8">
 <title>Danh sách nhân viên</title>
+<link rel="stylesheet" type="text/css" href="css/menu.css">
+<link rel="stylesheet" type="text/css" href="css/table.css">
+<link rel="stylesheet" type="text/css" href="css/button.css">
 </head>
 <body>
 
-		<center>
-			<h1><jsp:include page="header.jsp"></jsp:include></h1>
-			<h2><jsp:include page="menu.jsp"></jsp:include></h2>								
-		</center>
+	<%
+		TaiKhoanDAO tkd = new TaiKhoanDAO();
+		String _username = request.getParameter("u");
+		String Quyen = "";
+		if(tkd.XemQuyen(request.getParameter("uname"), request.getParameter("psw"))==1)
+			Quyen = "Admin";
+		else
+			Quyen = "Nhân Viên";
+	%>
+	
+	<div id="menu">
+			<a  href="TrangChu.jsp" class="myButton">Trang chủ</a>
+			<a  href="ThemChamCong.jsp?u=<%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>" class="myButton">Chấm Công</a>
+			<a  href="nhanvien_list.jsp" class="myButton">Nhân Viên</a>
+			<a  href="chamcong.jsp" class="myButton">Thống kê Công</a>
+			<a  style="float: right;" href="logout.jsp" class="tsx">Đăng xuất</a>
+			<a style="float: right; margin-top: 11px;"><%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>|<%=Quyen %> | </a>
+	</div>
 
 
 
@@ -28,87 +46,32 @@
 	}
 %>	
 
-<span style="background-color: white; color: #404040; font-family: Arimo, Tahoma, Arial; font-size: 17px;">&nbsp;</span>
-<a  href="ThemNhanVien.jsp" id="single-theme-download" style="background: rgb(26, 107, 178); border: none; box-sizing: inherit; color: white; display: inline-block; font-family: &quot;Hammersmith One&quot;, Tahoma, Arial; font-size: 1.125rem; margin: 0px 0.3em 10px 0px; padding: 0.4em 1.6em; text-decoration-line: none; text-transform: uppercase; transition: all 0.3s ease;
-">thêm nhân viên</a>
-
-<title>Table V02</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-	
-	<div class="limiter">
-		<div class="container-table100">
-			<div class="wrap-table100">
-					<div class="table">
-
-						<div class="row header">
-							<div class="cell">
-								Mã Nhân viên
-							</div>
-							<div class="cell">
-								Tên Nhân Viên
-							</div>
-							<div class="cell">
-								Tuổi
-							</div>
-							<div class="cell">
-								Quê Quán
-							</div>
-						
-						</div>
-						<% for(NhanVien lnv: nv.getlistNhanVien()){ %>
-							
-						<div class="row">
-							<div class="cell" data-title="Full Name">
-								<%=lnv.getMa_nhan_vien() %>
-							</div>
-							<div class="cell" data-title="Full Name">
-								<%=lnv.getTen_nhan_vien() %>
-							</div>
-							<div class="cell" data-title="Age">
-								<%=lnv.getTuoi() %>
-							</div>
-							<div class="cell" data-title="Job Title">
-								<%=lnv.getQue_quan() %>
-							</div>
-						</div>
-							
-						<% } %>
-
-					</div>
-			</div>
-		</div>
-	</div>
-
-
-	
-
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-	
+	<table class="_table">
+		<thead>
+			<tr>
+				<th>Mã Nhân viên</th>
+			    <th>Tên Nhân Viên</th>
+			    <th>Tuổi</th>
+			    <th>Quê Quán</th>
+			    <th></th>
+			</tr>
+		</thead>
+		<tbody>
+		<% for(NhanVien lnv: nv.getlistNhanVien()){ %>
+			<tr>
+				<td><%=lnv.getMa_nhan_vien() %></td>
+				<td><%=lnv.getTen_nhan_vien() %></td>
+				<td><%=lnv.getTuoi() %></td>
+				<td><%=lnv.getQue_quan() %></td>
+				<td>
+					<a href="ThemNhanVien.jsp"  class="tsx">Thêm nhân viên</a>
+					<a href="" class="tsx">Sửa</a>
+					<a href=""  class="tsx">Xóa</a>
+				</td>
+		</tr>
+		<%} %>
+		</tbody>
+	</table>
 	
 </body>
 </html>

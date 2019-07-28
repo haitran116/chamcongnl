@@ -1,3 +1,4 @@
+<%@page import="dao.TaiKhoanDAO"%>
 <%@page import="dao.PhieuChamCongDAO"%>
 <%@page import="dao.chamcongDAO"%>
 <%@page import="model.NhanVien"%>
@@ -11,7 +12,8 @@
 <head>
     <meta charset="utf-8">
     <title>Thực Hiện Chấm Công</title>
-
+	<link rel="stylesheet" type="text/css" href="css/menu.css">
+	<link rel="stylesheet" type="text/css" href="css/button.css">
     <style>
     
     	body{
@@ -19,8 +21,8 @@
     	}
     	
     	#nhap{
-    		width: 400px;
-    		margin: 0px auto;
+    		width: auto;
+    		margin-top: 20px;
     	}
     	
         table {
@@ -60,25 +62,42 @@
 </head>
 
 <body>
-    <form action="chamcong.jsp">
+	<%
+		TaiKhoanDAO tkd = new TaiKhoanDAO();
+		String _username = request.getParameter("u");
+		String Quyen = "";
+		if(tkd.XemQuyen(request.getParameter("uname"), request.getParameter("psw"))==1)
+			Quyen = "Admin";
+		else
+			Quyen = "Nhân Viên";
+	%>
+	
+	<div id="menu">
+			<a  href="TrangChu.jsp" class="myButton">Trang chủ</a>
+			<a  href="ThemChamCong.jsp?u=<%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>" class="myButton">Chấm Công</a>
+			<a  href="nhanvien_list.jsp" class="myButton">Nhân Viên</a>
+			<a  href="chamcong.jsp" class="myButton">Thống kê Công</a>
+			<a  style="float: right;" href="logout.jsp" class="tsx">Đăng xuất</a>
+			<a style="float: right; margin-top: 11px;"><%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>|<%=Quyen %> | </a>
+	</div>
+
+    <form action="AddChamCong" method="get">
     	<div id="nhap">
-    		<br> Tên Sự Kiện:
+    		<br> Tên Sự Kiện:  
 	        <input type="text" name="txtTenSuKien">
 	        <br>
 	        <br> Loại Sự Kiện:
 	        <input type="text" name="txtLoaiSuKien">
 	        <br>
-	        <br> Ngày Diễn Ra Sư kiện:
+	        <br> Ngày Diễn Ra Sư kiện:   
 	        <input type="text" name="txtNgayDRSK">
 	        <br>
-	        <br> Thời gian setup:
+	        <br> Thời gian setup:   
 	        <input type="text" name="txtTimeSetup">
 	        <br>
 	        <br>
     	</div>
-    	
-
-
+		
 
 
         <table id="Table_">
@@ -108,13 +127,17 @@
 
                                 <%} %>
                         </select>
-
+                        
+						<input type="hidden" value="<%=_username %>" id="username">
+                        <input type="hidden" name="adapter_data_username" value="<%=request.getParameter("u") %>" >
+                        
                         <button type="button" class="button" onclick="addpeo()">Thêm Tên</button>
                         <br>
                         <br>
 
                         <script type="text/javascript">
-                            var x = ""; //khai báo biến nhân sự
+                            var x = document.getElementById("username").value; //khai báo biến nhân sự
+                            document.getElementById("themnhansu").value = x;
                         </script>
 
                         <script>
@@ -159,7 +182,7 @@
                             var cell5 = row.insertCell(4);
 
                             cell1.innerHTML = document.getElementById("Date").value;
-                            cell2.innerHTML = document.getElementById("themnhansu").value.substring(1).trim();
+                            cell2.innerHTML = document.getElementById("themnhansu").value.trim();
                             cell3.innerHTML = document.getElementById("CongViec").value;
                             cell4.innerHTML = document.getElementById("TimeBD").value;
                             cell5.innerHTML = document.getElementById("TimeEnd").value;
@@ -169,8 +192,10 @@
                             document.getElementById("CongViec").value = "";
                             document.getElementById("TimeBD").value = "";
                             document.getElementById("TimeEnd").value = "";
-                            x = ""; // là chuỗi tên đã tạo tại js dropbox
-
+                            
+                            x = document.getElementById("username").value; // là chuỗi tên đã tạo tại js dropbox
+                            document.getElementById("themnhansu").value = x;
+                            
                             gettable = gettable + cell1.innerHTML + "|" + cell2.innerHTML + "|" + cell3.innerHTML
                             			+ "|" + cell4.innerHTML + "|" + cell5.innerHTML + "[";
 

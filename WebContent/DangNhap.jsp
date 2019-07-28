@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;
-	width: 100%;
+	width: 50%;
 	margin: 0px auto;
 	
 }
@@ -75,6 +75,7 @@ span.psw {
   }
   .cancelbtn {
      width: 100%;
+     color: yellow;
   }
 }
 </style>

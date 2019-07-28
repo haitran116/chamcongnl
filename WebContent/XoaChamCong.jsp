@@ -1,3 +1,4 @@
+<%@page import="model.User_login"%>
 <%@page import="dao.chamcongDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -9,9 +10,10 @@
 <body>
 <%
 	chamcongDAO ccd = new chamcongDAO();
-	if(Integer.parseInt(request.getParameter("u"))>0){
-		ccd.XoaChamXong(Integer.parseInt(request.getParameter("u")));
-		response.sendRedirect("chamcong.jsp");
+	int id = Integer.parseInt(request.getParameter("u"));
+	if(id>0){
+		ccd.XoaChamXong(id);
+		response.sendRedirect("TrangChu.jsp");
 	}
 %>
 </body>

@@ -114,10 +114,10 @@ table._table tfoot .links a{
 	
 	XuLyChucNang xlc = new XuLyChucNang();
 	//out.print(xlc.ChuoiGiaTri(request.getParameter("adapter_data_chamcong")));
-	String ip = request.getParameter("adapter_data_chamcong");
+	
 
 	if(request.getParameter("adapter_data_chamcong")!=null){
-		
+		String ip = request.getParameter("adapter_data_chamcong");
 		for(String li: xlc.ChuoiGiaTri(ip)){
 			String[] arr = li.split("\\|");
 			

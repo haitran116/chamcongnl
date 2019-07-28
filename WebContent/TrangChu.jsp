@@ -1,6 +1,10 @@
+<%@page import="model.User_login"%>
+<%@page import="dao.PhieuChamCongDAO"%>
+<%@page import="dao.XuLyChucNang"%>
 <%@page import="model.ChamCong"%>
 <%@page import="dao.chamcongDAO"%>
 <%@page import="dao.TaiKhoanDAO"%>
+<%@page import="Servlet.Login"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -8,131 +12,43 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Trang Chủ</title>
-
-<style type="text/css">
-
-#menu {
-	background: green;
-	width: 100%;
-	height: auto;
-	margin: 0px auto;
-	
-}
-
-
-
-table._table {
-  border: 1px solid #1C6EA4;
-  background-color: #EEEEEE;
-  width: 100%;
-  text-align: center;
-  border-collapse: collapse;
-  margin: 0px auto;
-}
-table._table td, table._table th {
-  border: 1px solid #AAAAAA;
-  padding: 3px 2px;
-}
-table._table tbody td {
-  font-size: 14px;
-}
-table._table thead {
-  background: #1C6EA4;
-  border-bottom: 2px solid #444444;
-}
-table._table thead th {
-  font-size: 15px;
-  font-weight: bold;
-  color: #FFFDF3;
-  text-align: center;
-  border-left: 2px solid #D0E4F5;
-}
-table._table thead th:first-child {
-  border-left: none;
-}
-
-table._table tfoot td {
-  font-size: 14px;
-}
-table._table tfoot .links {
-  text-align: right;
-}
-table._table tfoot .links a{
-  display: inline-block;
-  background: #1C6EA4;
-  color: #FFFFFF;
-  padding: 2px 8px;
-  border-radius: 5px;
-}
-
-.tsx {
-	-moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
-	-webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
-	box-shadow: 0px 1px 0px 0px #f0f7fa;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
-	background:-moz-linear-gradient(top, #33bdef 5%, #019ad2 100%);
-	background:-webkit-linear-gradient(top, #33bdef 5%, #019ad2 100%);
-	background:-o-linear-gradient(top, #33bdef 5%, #019ad2 100%);
-	background:-ms-linear-gradient(top, #33bdef 5%, #019ad2 100%);
-	background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0);
-	background-color:#33bdef;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #057fd0;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 14px;
-	text-decoration:none;
-	text-shadow:0px -1px 0px #5b6178;
-}
-.tsx:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
-	background:-moz-linear-gradient(top, #019ad2 5%, #33bdef 100%);
-	background:-webkit-linear-gradient(top, #019ad2 5%, #33bdef 100%);
-	background:-o-linear-gradient(top, #019ad2 5%, #33bdef 100%);
-	background:-ms-linear-gradient(top, #019ad2 5%, #33bdef 100%);
-	background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#019ad2', endColorstr='#33bdef',GradientType=0);
-	background-color:#019ad2;
-}
-.tsx:active {
-	position:relative;
-	top:1px;
-}
-
-</style>
-
+<link rel="stylesheet" type="text/css" href="css/menu.css">
+<link rel="stylesheet" type="text/css" href="css/table.css">
+<link rel="stylesheet" type="text/css" href="css/button.css">
 </head>
 <body>
 
-	<% 		
-		TaiKhoanDAO tkd = new TaiKhoanDAO();
-		chamcongDAO ccd = new chamcongDAO();
-		String user = "";
-		if(tkd.KiemTraDangNhap(request.getParameter("uname"), request.getParameter("psw"))==1){
-			user = tkd.LayTenLogin(request.getParameter("uname"));
-		}
-		else{
-			response.sendRedirect("index.jsp");
-		}
-	%>
+	<%
+		  TaiKhoanDAO tkd = new TaiKhoanDAO();
+	
+		  //String user = ((User_login) request.getAttribute("user_login")).getUsername();
+		  //String pass = ((User_login) request.getAttribute("user_login")).getPassword();
+		  
+		  String user = (String)session.getAttribute("_user");
+		  
+		  String name = tkd.LayTenLogin(user);
+		  String Quyen = "";
+		  if(tkd.XemQuyen(request.getParameter("uname"), request.getParameter("psw"))==1)
+				Quyen = "Admin";
+			else
+				Quyen = "Nhân Viên";
+		  
+	%>	
 
 	<div id="menu">
-			<jsp:include page="menu.jsp"></jsp:include>
-			<a style="float: right;"><%=user %></a>
+			<a  href="TrangChu.jsp" class="myButton">Trang chủ</a>
+			<a  href="ThemChamCong.jsp?u=<%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>" class="myButton">Chấm Công</a>
+			<a  href="nhanvien_list.jsp" class="myButton">Nhân Viên</a>
+			<a  href="chamcong.jsp" class="myButton">Thống kê Công</a>
+			<a  style="float: right; " href="logout.jsp" class="tsx">Đăng xuất</a>
+			<a style="float: right; margin-top: 11px;"><%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>|<%=Quyen %> | </a>
 	</div>
 
 	<table class="_table">
 	<thead>
 		<tr>
 			<th>id</th>
-		    <th>id phiếu</th> 
+		    <th>id phiếu</th>
 		    <th>Ngày Chấm</th>
 		    <th>Nhân sự</th>
 		    <th>Công Việc</th>
@@ -142,7 +58,9 @@ table._table tfoot .links a{
 		</tr>
 	</thead>
 	<tbody>
-	<% for(ChamCong li: ccd.nguoi_tra(user)){ %>
+	<% 
+		chamcongDAO ccd = new chamcongDAO();
+		for(ChamCong li: ccd.nguoi_tra(name)){ %>
 		<tr>
 			<td><%=li.getId_cham_cong() %></td>
 			<td><%=li.getId_Phieu_Cham_Cong() %></td>
@@ -152,11 +70,11 @@ table._table tfoot .links a{
 			<td><%=li.getThoi_gian_batdau() %></td>
 			<td><%=li.getThoi_gian_xong() %></td>
 			<td>
-				<a href="SuaChamCong.jsp?u=<%=li.getId_cham_cong() %>" class="tsx">Sửa</a>								
-				<a href="XoaChamCong.jsp?u=<%=li.getId_cham_cong() %>"  class="tsx">Xóa</a>
+				<a style="color: yellow;" href="SuaChamCong.jsp?u=<%=li.getId_cham_cong() %>" class="tsx">Sửa</a>
+				<a style="color: red;" href="XoaChamCong.jsp?u=<%=li.getId_cham_cong() %>"  class="tsx">Xóa</a>
 			</td>
 	</tr>
-	<% } %>
+	<%} %>
 	</tbody>
 	</table>
 
