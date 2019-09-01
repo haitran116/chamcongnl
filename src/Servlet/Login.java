@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); // tạo 1 user + pass xuyên suốt phiên login
 		String _user = request.getParameter("uname");
 		String _pass = request.getParameter("psw");
 		
@@ -47,8 +47,15 @@ public class Login extends HttpServlet {
 				//request.setAttribute("user_login", ul);
 				
 				session.setAttribute("_user", _user);
-				RequestDispatcher rd = request.getRequestDispatcher("/TrangChu.jsp");
-				rd.forward(request, response);
+				
+				if(tkd.XemQuyen(_user, _pass)==0) {
+					RequestDispatcher rd = request.getRequestDispatcher("/TrangChu.jsp");
+					rd.forward(request, response);
+				}
+				else {
+					RequestDispatcher rd = request.getRequestDispatcher("/Admin_index.jsp");
+					rd.forward(request, response);
+				}
 			}
 			else {
 				response.sendRedirect("index.jsp");

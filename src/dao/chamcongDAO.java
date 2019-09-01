@@ -15,7 +15,7 @@ public class chamcongDAO {
 	public ArrayList<ChamCong> getlistChamCong() throws SQLException{
 		
 		Connection conn = DBconnect.getConnect();
-		PreparedStatement stm = conn.prepareStatement("SELECT * FROM dbnguyenle.chamcong_theophieu;");
+		PreparedStatement stm = conn.prepareStatement("SELECT * FROM dbnguyenle.chamcong_theophieu");
 		ResultSet rs = stm.executeQuery();
 		
 		ArrayList<ChamCong> list = new ArrayList<>();
@@ -35,6 +35,7 @@ public class chamcongDAO {
 		return list;
 		
 	}
+
 	
 	public ArrayList<ChamCong> nguoi_tra(String ten) throws SQLException { // tra theo tên người 
 

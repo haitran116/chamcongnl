@@ -65,14 +65,10 @@
 	<%
 		TaiKhoanDAO tkd = new TaiKhoanDAO();
 		String _username = request.getParameter("u");
-		String Quyen = "";
-		if(tkd.XemQuyen(request.getParameter("uname"), request.getParameter("psw"))==1)
-			Quyen = "Admin";
-		else
-			Quyen = "Nhân Viên";
+		String Quyen = "Nhân Viên";
 	%>
 	
-	<div id="menu">
+	<div id="menu" style="height: 60px;">
 			<a  href="TrangChu.jsp" class="myButton">Trang chủ</a>
 			<a  href="ThemChamCong.jsp?u=<%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>" class="myButton">Chấm Công</a>
 			<a  href="nhanvien_list.jsp" class="myButton">Nhân Viên</a>
@@ -211,7 +207,7 @@
         <input type="hidden" name="adapter_data_chamcong" id="chuoidata">  <!-- tạo 1 biến adapter chuyển sang form khác -->
 		    	
 		
-        <center><input type="submit" value="Chấm Công" class="button"></center>
+        <input style="margin: 0px auto;" type="submit" value="Chấm Công" class="button">
     </form>
 
 

@@ -4,7 +4,7 @@ table._table {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
-  margin: 0px auto;
+ 
 }
 table._table td, table._table th {
   border: 1px solid #AAAAAA;
@@ -18,9 +18,9 @@ table._table thead {
   border-bottom: 2px solid #444444;
 }
 table._table thead th {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
-  color: #FFFDF3;
+  color: #80ff00;
   text-align: center;
   border-left: 2px solid #D0E4F5;
 }
