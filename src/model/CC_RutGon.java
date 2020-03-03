@@ -4,12 +4,29 @@ import java.sql.Date;
 
 public class CC_RutGon {
 	int id;
+	String NgayGuiPhieu;
+	String NguoiCham;
 	String tensk;
 	String ngaydienrask;
 	String thoigiansetup;
 	String loaisk;
 	String ngaycham;
 	String nhansu;
+	
+	
+	public String getNgayGuiPhieu() {
+		return NgayGuiPhieu;
+	}
+	public void setNgayGuiPhieu(String ngayGuiPhieu) {
+		NgayGuiPhieu = ngayGuiPhieu;
+	}
+	public String getNguoiCham() {
+		return NguoiCham;
+	}
+	public void setNguoiCham(String nguoiCham) {
+		NguoiCham = nguoiCham;
+	}
+
 	
 	public int getId() {
 		return id;

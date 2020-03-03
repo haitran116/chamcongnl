@@ -53,7 +53,8 @@
 		
 		img.avatar {
 		  width: 40%;
-		  border-radius: 50%;
+		  height: 100%;
+		  
 		}
 		
 		.container {
@@ -83,21 +84,21 @@
 
 	<h2>Đăng Nhập</h2>
 	
-	<form action="Login" method="get">
+	<form action="Login" method="post">
 	  <div class="imgcontainer">
-	    <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
+	    <img src="https://nguyenle.com.vn/wp-content/uploads/2014/11/logo.png" alt="Avatar" class="avatar">
 	  </div>
 	
 	  <div class="container">
-	    <label for="uname"><b>Username</b></label>
+	    <label for="uname"><b>Tên tài khoản :</b></label>
 	    <input type="text" placeholder="Enter Username" name="uname" required>
 	
-	    <label for="psw"><b>Password</b></label>
+	    <label for="psw"><b>Mật khẩu :</b></label>
 	    <input type="password" placeholder="Enter Password" name="psw" required>
 	        
-	    <button type="submit">Login</button>
+	    <button type="submit">Đăng nhập</button>
 	    <label>
-	      <input type="checkbox" checked="checked" name="remember"> Remember me
+	      <input type="checkbox" checked="checked" name="remember"> Nhớ đăng nhập
 	    </label>
 	  </div>
 	

@@ -4,7 +4,8 @@ table._table {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
- 
+  font-family: tahoma;
+  margin-top: 5px;
 }
 table._table td, table._table th {
   border: 1px solid #AAAAAA;
@@ -14,13 +15,13 @@ table._table tbody td {
   font-size: 14px;
 }
 table._table thead {
-  background: #1C6EA4;
+  background: #ffff00;
   border-bottom: 2px solid #444444;
 }
 table._table thead th {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
-  color: #80ff00;
+  color: #400080;
   text-align: center;
   border-left: 2px solid #D0E4F5;
 }

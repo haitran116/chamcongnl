@@ -29,7 +29,7 @@
 			<a  href="TrangChu.jsp" class="myButton">Trang chủ</a>
 			<a  href="ThemChamCong.jsp?u=<%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>" class="myButton">Chấm Công</a>
 			<a  href="nhanvien_list.jsp" class="myButton">Nhân Viên</a>
-			<a  href="chamcong.jsp" class="myButton">Thống kê Công</a>
+			<a  href="" class="myButton">Thống kê Công</a>
 			<a  style="float: right;" href="logout.jsp" class="tsx">Đăng xuất</a>
 			<a style="float: right; margin-top: 11px;"><%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>|<%=Quyen %> | </a>
 	</div>

@@ -6,11 +6,6 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <style type="text/css">
-a{
-color: yellow;
-size: 30px;
-margin-top: 5px;
-}
 
 .myButton {
 	-moz-box-shadow: 0px 0px 0px 2px #9fb4f2;
@@ -76,7 +71,7 @@ margin-top: 5px;
 	<a  href="nhanvien_list.jsp" class="myButton">Danh sách Nhân Viên</a>
 	
 	
-	<a  href="chamcong.jsp" class="myButton">Thống kê Công</a>
+	<a  href="" class="myButton">Thống kê Công</a>
 
 </body>
 </html>

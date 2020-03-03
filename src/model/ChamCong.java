@@ -9,9 +9,9 @@ public class ChamCong {
 	String cong_viec;
 	String thoi_gian_batdau;
 	String thoi_gian_xong;
-
-
-	
+	int lam_dem_2124;
+	int lam_dem_06;
+	String ghi_chu;
 	
 	public int getId_Phieu_Cham_Cong() {
 		return id_Phieu_Cham_Cong;
@@ -56,7 +56,24 @@ public class ChamCong {
 		this.id_cham_cong = id_cham_cong;
 	}
 
-	
+	public int getLam_dem_2124() {
+		return lam_dem_2124;
+	}
+	public void setLam_dem_2124(int lam_dem_2124) {
+		this.lam_dem_2124 = lam_dem_2124;
+	}
+	public int getLam_dem_06() {
+		return lam_dem_06;
+	}
+	public void setLam_dem_06(int lam_dem_06) {
+		this.lam_dem_06 = lam_dem_06;
+	}
+	public String getGhi_chu() {
+		return ghi_chu;
+	}
+	public void setGhi_chu(String ghi_chu) {
+		this.ghi_chu = ghi_chu;
+	}
 	
 	
 }

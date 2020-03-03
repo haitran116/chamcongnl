@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/TrangChu.jsp=UTF-8
 encoding//WebContent/XemChiTietCong.jsp=UTF-8
+encoding//WebContent/dialog_YN.jsp=UTF-8
 encoding//WebContent/logout.jsp=UTF-8
 encoding//WebContent/menu.jsp=UTF-8
 encoding//src/Servlet/Login.java=UTF-8

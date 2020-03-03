@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import com.mysql.jdbc.Connection;
 
@@ -12,13 +15,15 @@ import model.CC_RutGon;
 
 public class CC_RutGonDAO {
 
-	public ArrayList<CC_RutGon> GetlistChamCong_RutGon(String name) throws SQLException{
+	public ArrayList<CC_RutGon> GetlistChamCong_RutGon(String name, int mount) throws SQLException{
 		
 		ArrayList<CC_RutGon> list = new ArrayList<>();
 		ArrayList<CC_RutGon> list_fn = new ArrayList<>();
 		Connection conn = DBconnect.getConnect();
 		String sql = "SELECT \r\n" + 
 				"    cctp.idPhieuChamCong,\r\n" + 
+				"    pcc.NgayGuiPhieu,\r\n" + 
+				"    pcc.NguoiCham,\r\n" + 
 				"    pcc.TenSuKien,\r\n" + 
 				"    pcc.NgayDienRaSuKien,\r\n" + 
 				"    pcc.ThoiGianSetup,\r\n" + 
@@ -31,19 +36,23 @@ public class CC_RutGonDAO {
 				"WHERE\r\n" + 
 				"    cctp.idPhieuChamCong = pcc.idPhieuChamCong\r\n" + 
 				"and\r\n" + 
-				"cctp.nhan_su like '%"+name+"%'";
+				"cctp.nhan_su like '%"+name+"%'" +
+				"AND MONTH(ngay_cham) = "+mount+"";
 		PreparedStatement stm = conn.prepareStatement(sql);
 		ResultSet rs = stm.executeQuery();
 		
 		while(rs.next()) {
 			CC_RutGon rg = new CC_RutGon();
 			rg.setId(rs.getInt(1));
-			rg.setTensk(rs.getString(2));
-			rg.setNgaydienrask(rs.getString(3));
-			rg.setThoigiansetup(rs.getString(4));
-			rg.setLoaisk(rs.getString(5));
-			rg.setNgaycham(rs.getString(6));
-			rg.setNhansu(rs.getString(7));
+			rg.setNgayGuiPhieu(rs.getString(2));
+			rg.setNguoiCham(rs.getString(3));
+			rg.setTensk(rs.getString(4));
+			rg.setNgaydienrask(rs.getString(5));
+			rg.setThoigiansetup(rs.getString(6));
+			rg.setLoaisk(rs.getString(7));
+			rg.setNgaycham(rs.getString(8));
+			rg.setNhansu(rs.getString(9));
+			
 			list.add(rg);
 		}
 		
@@ -61,7 +70,7 @@ public class CC_RutGonDAO {
 		
 		ArrayList<Integer> id_KoTrung = new ArrayList<>();
 		while(rs1.next()) {
-			id_KoTrung.add(rs1.getInt(1));
+			id_KoTrung.add(rs1.getInt(1)); // lấy được id không trùng
 		}
 		
 		for(int a: id_KoTrung) {
@@ -70,6 +79,8 @@ public class CC_RutGonDAO {
 					//System.out.println(li.getId());
 					CC_RutGon rg1 = new CC_RutGon();
 					rg1.setId(li.getId());
+					rg1.setNgayGuiPhieu(li.getNgayGuiPhieu());
+					rg1.setNguoiCham(li.getNguoiCham());
 					rg1.setTensk(li.getTensk());
 					rg1.setNgaydienrask(li.getNgaydienrask());
 					rg1.setThoigiansetup(li.getThoigiansetup());
@@ -81,16 +92,28 @@ public class CC_RutGonDAO {
 				}
 			}
 		}
+		
+		Collections.sort(list_fn, new Comparator<CC_RutGon>() { // sắp xếp từ mới nhất lên đầu 
+
+			@Override
+			public int compare(CC_RutGon o1, CC_RutGon o2) {
+				// TODO Auto-generated method stub
+				return o2.getId()-o1.getId();
+			}
+			
+		});
 							
 		return list_fn;
 	}
 	
-	public ArrayList<CC_RutGon> GetlistCC_Admin() throws SQLException{
+	public ArrayList<CC_RutGon> GetlistCC_Admin(int mount) throws SQLException{
 		ArrayList<CC_RutGon> list = new ArrayList<>();
 		ArrayList<CC_RutGon> list_fn = new ArrayList<>();
 		Connection conn = DBconnect.getConnect();
 		String sql = "SELECT \r\n" + 
 				"    cctp.idPhieuChamCong,\r\n" + 
+				"    pcc.NgayGuiPhieu,\r\n" + 
+				"    pcc.NguoiCham,\r\n" + 
 				"    pcc.TenSuKien,\r\n" + 
 				"    pcc.NgayDienRaSuKien,\r\n" + 
 				"    pcc.ThoiGianSetup,\r\n" + 
@@ -101,19 +124,22 @@ public class CC_RutGonDAO {
 				"    dbnguyenle.chamcong_theophieu cctp,\r\n" + 
 				"    dbnguyenle.phieuchamcong pcc\r\n" + 
 				"WHERE\r\n" + 
-				"    cctp.idPhieuChamCong = pcc.idPhieuChamCong";
+				"    cctp.idPhieuChamCong = pcc.idPhieuChamCong\r\n" + 
+				"        AND MONTH(ngay_cham) = "+mount+"";
 		PreparedStatement stm = conn.prepareStatement(sql);
 		ResultSet rs = stm.executeQuery();
 		
 		while(rs.next()) {
 			CC_RutGon rg = new CC_RutGon();
 			rg.setId(rs.getInt(1));
-			rg.setTensk(rs.getString(2));
-			rg.setNgaydienrask(rs.getString(3));
-			rg.setThoigiansetup(rs.getString(4));
-			rg.setLoaisk(rs.getString(5));
-			rg.setNgaycham(rs.getString(6));
-			rg.setNhansu(rs.getString(7));
+			rg.setNgayGuiPhieu(rs.getString(2));
+			rg.setNguoiCham(rs.getString(3));
+			rg.setTensk(rs.getString(4));
+			rg.setNgaydienrask(rs.getString(5));
+			rg.setThoigiansetup(rs.getString(6));
+			rg.setLoaisk(rs.getString(7));
+			rg.setNgaycham(rs.getString(8));
+			rg.setNhansu(rs.getString(9));
 			list.add(rg);
 		}
 		
@@ -139,6 +165,8 @@ public class CC_RutGonDAO {
 					//System.out.println(li.getId());
 					CC_RutGon rg1 = new CC_RutGon();
 					rg1.setId(li.getId());
+					rg1.setNgayGuiPhieu(li.getNgayGuiPhieu());
+					rg1.setNguoiCham(li.getNguoiCham());
 					rg1.setTensk(li.getTensk());
 					rg1.setNgaydienrask(li.getNgaydienrask());
 					rg1.setThoigiansetup(li.getThoigiansetup());
@@ -150,22 +178,25 @@ public class CC_RutGonDAO {
 				}
 			}
 		}
+		
+		Collections.sort(list_fn, new Comparator<CC_RutGon>() { // sắp xếp từ mới nhất lên đầu 
+
+			@Override
+			public int compare(CC_RutGon o1, CC_RutGon o2) {
+				// TODO Auto-generated method stub
+				return o2.getId()-o1.getId();
+			}
+			
+		});
 							
 		return list_fn;		
 	}
 	
-	public static void main(String[] args)  {
+	public static void main(String[] args) throws SQLException  {
 		
 		CC_RutGonDAO c = new CC_RutGonDAO();
-		try {
-			//System.out.println(c.GetlistChamCong_RutGon("Hải"));
-			//System.out.println(c.GetlistCC_Admin());
-			for(CC_RutGon li: c.GetlistCC_Admin()) {
-				System.out.println(li.getId());
-			}
-		} catch (SQLException e) {
-			System.out.println("loi");
+		for(CC_RutGon li: c.GetlistCC_Admin(11)) {
+			System.out.println(li.getId());
 		}
-		
 	}
 }

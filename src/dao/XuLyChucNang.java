@@ -1,10 +1,15 @@
 package dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import com.mysql.jdbc.Connection;
+
+import connect.DBconnect;
 import model.PhieuChamCong;
 
 public class XuLyChucNang {
@@ -48,17 +53,58 @@ public class XuLyChucNang {
 		
 		return i+1;
 	}
+	
+	public String DD_Date(String ip) {	 // định dạng lại dd/mm/yyyy
+		String result = "";
+		String[] cut = ip.split("-");
+		
+		result = cut[2] + "/" + cut[1] + "/" + cut[0];
+		
+		return result;
+		
+	}
+	
+	public String text_lamdem(String ip) {
+		if(ip.equals("1")){
+			return "có";
+		}
+		else {
+			return " ";
+		}		
+	}
+	
+	public String KiemTraQuyenEdit(int id) throws SQLException {
+		Connection con = DBconnect.getConnect();
+		String sql = "SELECT \r\n" + 
+				"    NguoiCham\r\n" + 
+				"FROM\r\n" + 
+				"    dbnguyenle.phieuchamcong\r\n" + 
+				"WHERE\r\n" + 
+				"	idPhieuChamCong = "+id+"";
+		PreparedStatement stm = con.prepareStatement(sql);
+		ResultSet rs = stm.executeQuery();
+		String _name = "";
+		while(rs.next()) {
+			_name = rs.getString(1);
+			break;
+		}
+		
+		return _name;
+	}
 
-	public static void main(String[] args) {
+	public String KiemTraGio(String ip) {	
+		if(ip.equals(""))
+			return "-";
+		else 
+			return ip.substring(0,5);
+	}
+
+	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		XuLyChucNang xl = new XuLyChucNang();
 		//xl.ChuoiGiaTri("2019-4-2|Hải, Hải, Hải|kho setup tại ks sheraton|15:00|19:00[2019-4-10|Hùng, Hùng, Hùng|setup tại ks pan|15:00|19:00[");
-		try {
-			System.out.println(xl.id_phieu_cc());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//System.out.println(xl.DD_Date("2019-6-16"));
+		System.out.println(xl.KiemTraQuyenEdit(31));
 	}
 
 }

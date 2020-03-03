@@ -8,7 +8,21 @@ public class PhieuChamCong {
 	String _LoaiSuKien;
 	String _NgayDienRaSuKien;
 	String _ThoiGianSetup;
+	String _NguoiChamCong;
+	String _NgayGuiPhieu;
 	
+	public String get_NgayGuiPhieu() {
+		return _NgayGuiPhieu;
+	}
+	public void set_NgayGuiPhieu(String _NgayGuiPhieu) {
+		this._NgayGuiPhieu = _NgayGuiPhieu;
+	}
+	public String get_NguoiChamCong() {
+		return _NguoiChamCong;
+	}
+	public void set_NguoiChamCong(String _NguoiChamCong) {
+		this._NguoiChamCong = _NguoiChamCong;
+	}
 	public int get_idPhieuChamCong() {
 		return _idPhieuChamCong;
 	}

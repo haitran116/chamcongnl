@@ -1,3 +1,4 @@
+<%@page import="dao.XuLyChucNang"%>
 <%@page import="dao.TaiKhoanDAO"%>
 <%@page import="model.PhieuChamCong"%>
 <%@page import="dao.PhieuChamCongDAO"%>
@@ -16,22 +17,11 @@
 	body{
 	
 	}
-  table,
-  th,
-  td {
-    border: 2px solid black;
-    border-collapse: collapse;
-    margin: 0 auto;
-    font-family: tahoma;
-  }
-  th{
-  	background: green;
-  }
+
   h1{
   	color: orange;
   	text-align: center;
-  	font-family: tahoma;
-  	text-decoration: underline;
+  	font-family: tahoma;  	
   }
   h3{
   	font-family: tahoma;
@@ -65,7 +55,7 @@
 			<a  href="TrangChu.jsp" class="myButton">Trang chủ</a>
 			<a  href="ThemChamCong.jsp?u=<%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>" class="myButton">Chấm Công</a>
 			<a  href="nhanvien_list.jsp" class="myButton">Nhân Viên</a>
-			<a  href="chamcong.jsp" class="myButton">Thống kê Công</a>
+			<a  href="" class="myButton">Thống kê Công</a>
 			<a  style="float: right; " href="logout.jsp" class="tsx">Đăng xuất</a>
 			<a style="float: right; margin-top: 11px;"><%=tkd.LayTenLogin((String)session.getAttribute("_user")) %>|<%=Quyen %> | </a>
 	</div>
@@ -82,28 +72,34 @@
 				"    cctp.nhan_su,\r\n" + 
 				"    cctp.cong_viec,\r\n" + 
 				"    cctp.thoi_gian_batdau,\r\n" + 
-				"    cctp.thoi_gian_xong\r\n" + 
+				"    cctp.thoi_gian_xong,\r\n" + 
+				"    cctp.lamdem2124,\r\n" + 
+				"    cctp.lamdem06,\r\n" + 
+				"    cctp.ghichu\r\n" + 
 				"FROM\r\n" + 
 				"    dbnguyenle.chamcong_theophieu cctp,\r\n" + 
 				"    dbnguyenle.phieuchamcong pcc\r\n" + 
 				"WHERE\r\n" + 
 				"    cctp.idPhieuChamCong = pcc.idPhieuChamCong\r\n" + 
-				"        AND cctp.idPhieuChamCong = "+id+"";
+				"        AND cctp.idPhieuChamCong = '"+id+"'";
 		PreparedStatement stm = cn.prepareStatement(sql);
 		ResultSet rs = stm.executeQuery();
+		
 		PhieuChamCongDAO pccd = new PhieuChamCongDAO();
-		String a="",b="",c="",d="";
+		String a="",b="",c="",d="", e="";
 		for(PhieuChamCong li: pccd.getlistPhieuChamCong()){
 			if(li.get_idPhieuChamCong()==id){
 				a=li.get_TenSuKien();
 				b=li.get_NgayDienRaSuKien();
 				c=li.get_ThoiGianSetup();
 				d=li.get_LoaiSuKien();
+				e=li.get_NguoiChamCong();
 			}
 		}
 		
 	%>
 	<h1>PHIẾU CHẤM CÔNG BỘ PHẬN KỸ THUẬT NGUYỄN LÊ</h1>
+	<h3 style="float: right;">Người chấm công:<b><%=e.toUpperCase() %></b> </h3>
 	<h3>Tên sự kiện:<b><%=a.toUpperCase() %></b> </h3>
 	<h3>Ngày diễn ra sự kiện:<b><%=b.toUpperCase() %></b> </h3>
 	<h3>Thời gian setup:<b><%=c.toUpperCase() %></b> </h3>
@@ -123,17 +119,18 @@
               </tr>
             </thead>
 			<%
+			XuLyChucNang xl = new XuLyChucNang();
 			while(rs.next()){ ;%>
           <tbody>
-            <tr>
-                <td><%=rs.getString(5) %></td>
+            <tr style="font-weight: bold;">
+                <td><%=xl.DD_Date(rs.getString(5)) %></td>
                 <td><%=rs.getString(6) %></td>
-                <td><%=rs.getString(7) %></td>
-                <td><%=rs.getString(8) %></td>
-                <td><%=rs.getString(9) %></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td style="white-space: pre; text-align: left; height: 50px;"><%=rs.getString(7) %></td>
+                <td><%=xl.KiemTraGio(rs.getString(8)) %></td>
+                <td><%=xl.KiemTraGio(rs.getString(9)) %></td>
+                <td><%=xl.text_lamdem(rs.getString(10)) %></td>
+                <td><%=xl.text_lamdem(rs.getString(11)) %></td>
+                <td><%=rs.getString(12) %></td>
             </tr>
           </tbody>
           

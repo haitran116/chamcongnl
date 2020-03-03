@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,8 @@ public class PhieuChamCongDAO {
 			pcc.set_LoaiSuKien(rs.getString(3));
 			pcc.set_NgayDienRaSuKien(rs.getString(4));
 			pcc.set_ThoiGianSetup(rs.getString(5));
-			
+			pcc.set_NguoiChamCong(rs.getString(6));
+			pcc.set_NgayGuiPhieu(rs.getString(7));
 			list.add(pcc);
 		}
 		
@@ -34,9 +36,9 @@ public class PhieuChamCongDAO {
 		
 	}
 	
-	public void ThemPhieuChamCong(int id, String tensukien, String loaisk, String ngaydienrask, String timesetup) throws SQLException {
+	public void ThemPhieuChamCong(int id, String tensukien, String loaisk, String ngaydienrask, String timesetup, String NguoiCham, String NgayGuiPhieu) throws SQLException {
 		Connection con = DBconnect.getConnect();
-		String sql = "INSERT INTO dbnguyenle.phieuchamcong VALUES ("+id+",'"+tensukien+"','"+loaisk+"', '"+ngaydienrask+"', '"+timesetup+"')";
+		String sql = "INSERT INTO dbnguyenle.phieuchamcong VALUES ("+id+",'"+tensukien+"','"+loaisk+"', '"+ngaydienrask+"', '"+timesetup+"', '"+NguoiCham+"', '"+NgayGuiPhieu+"')";
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.executeUpdate();
 		con.close();
@@ -45,8 +47,10 @@ public class PhieuChamCongDAO {
 
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
-		//PhieuChamCongDAO t = new PhieuChamCongDAO();
+		PhieuChamCongDAO t = new PhieuChamCongDAO();
 		//t.ThemPhieuChamCong(3, "delta", "ATAS", "tối 9/6", "chiều 7/6");
+		for(PhieuChamCong a: t.getlistPhieuChamCong())
+			System.out.println(a.get_NguoiChamCong());
 
 	}
 

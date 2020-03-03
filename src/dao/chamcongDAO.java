@@ -28,7 +28,9 @@ public class chamcongDAO {
 			cc.setCong_viec(rs.getString(5));
 			cc.setThoi_gian_batdau(rs.getTime(6).toString());
 			cc.setThoi_gian_xong(rs.getTime(7).toString());
-			
+			cc.setLam_dem_2124(rs.getInt(8));
+			cc.setLam_dem_06(rs.getInt(9));
+			cc.setGhi_chu(rs.getTime(10).toString());
 			list.add(cc);
 		}
 		
@@ -50,10 +52,10 @@ public class chamcongDAO {
 		return listKQ;
 	}
 
-	public void ThemChamCong(int idphieu, String date, String nhansu, String congviec, String timeBD, String timeEnd) throws SQLException {
+	public void ThemChamCong(int idphieu, String date, String nhansu, String congviec, String timeBD, String timeEnd, int lamdem2124, int lamdem06, String ghichu) throws SQLException {
 		Connection con = DBconnect.getConnect();
-		String sql = "INSERT INTO dbnguyenle.chamcong_theophieu (idPhieuChamCong, ngay_cham, nhan_su, cong_viec, thoi_gian_batdau, thoi_gian_xong) "
-				+ "VALUES ("+idphieu+",'"+date+"','"+nhansu+"', '"+congviec+"', '"+timeBD+"', '"+timeEnd+"')";
+		String sql = "INSERT INTO dbnguyenle.chamcong_theophieu (idPhieuChamCong, ngay_cham, nhan_su, cong_viec, thoi_gian_batdau, thoi_gian_xong, lamdem2124, lamdem06, ghichu) "
+				+ "VALUES ("+idphieu+",'"+date+"','"+nhansu+"', '"+congviec+"', '"+timeBD+"', '"+timeEnd+"', '"+lamdem2124+"', '"+lamdem06+"', '"+ghichu+"')";
 		PreparedStatement stm = con.prepareStatement(sql);
 		stm.executeUpdate();
 		con.close();
@@ -73,9 +75,12 @@ public class chamcongDAO {
 	
 	public void XoaChamXong(int id) throws SQLException {
 		Connection conn = DBconnect.getConnect();
-		String sql = "DELETE FROM dbnguyenle.chamcong_theophieu WHERE idChamCong = '"+id+"'";
+		String sql = "DELETE FROM dbnguyenle.chamcong_theophieu WHERE idPhieuChamCong = '"+id+"'";
+		String sql1 = "DELETE FROM dbnguyenle.phieuchamcong WHERE idPhieuChamCong = '"+id+"'";
 		PreparedStatement stm = conn.prepareStatement(sql);
+		PreparedStatement stm1 = conn.prepareStatement(sql1);
 		stm.executeUpdate();
+		stm1.executeUpdate();
 		conn.close();
 	}
 	
